@@ -13,6 +13,7 @@
 # Sample Usage:
 #
 class apache (
+  $site_name            = undef,
   $service_name         = $::apache::params::service_name,
   $default_mods         = true,
   $default_vhost        = true,
@@ -276,7 +277,8 @@ class apache (
     # - $server_tokens
     # - $server_signature
     # - $trace_enable
-    file { "${::apache::params::conf_dir}/${::apache::params::conf_file}":
+    # file { "${::apache::params::conf_dir}/${::apache::params::conf_file}":
+    file { "$confd_dir/${::apache::params::conf_file}":
       ensure  => file,
       content => template($conf_template),
       notify  => Class['Apache::Service'],
